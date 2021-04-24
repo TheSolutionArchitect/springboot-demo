@@ -2,7 +2,6 @@ package com.obliqueone.cms.springjpah2.rest;
 
 import java.security.Principal;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.obliqueone.cms.springjpah2.common.RoleConstant;
-import com.obliqueone.cms.springjpah2.entity.RoleEntity;
 import com.obliqueone.cms.springjpah2.entity.UserEntity;
 import com.obliqueone.cms.springjpah2.repository.UserRepository;
 
@@ -39,6 +37,8 @@ public class UserRestController {
         user.setRoles(RoleConstant.DEFAULT_ROLE);//USER
         String encryptedPwd = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPwd);
+        System.out.println("username "+user.getUserName()+" Passwd "+user.getPassword() + "role "+user.getRoles());
+               
         repository.save(user);
         return "Hi " + user.getUserName() + " welcome to group !";
     }
@@ -58,6 +58,12 @@ public class UserRestController {
         }
         repository.save(user);
         return "Hi " + user.getUserName() + " New Role assign to you by " + principal.getName();
+    }
+    
+    @GetMapping("/find/{userName}")
+    public UserEntity getUserByUserName(@PathVariable String userName) {
+    	System.out.println("calling getUserByUserName");
+    	return repository.findByUserName(userName).get();
     }
 
     @GetMapping

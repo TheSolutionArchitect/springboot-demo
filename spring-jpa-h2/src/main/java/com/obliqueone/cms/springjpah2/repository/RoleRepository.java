@@ -7,6 +7,4 @@ import com.obliqueone.cms.springjpah2.domain.Role;
 import com.obliqueone.cms.springjpah2.entity.RoleEntity;
 
 public interface RoleRepository extends JpaRepository<RoleEntity, Integer>{
-	
-    public Role getRoleByName(@Param("username") String username);
 }
