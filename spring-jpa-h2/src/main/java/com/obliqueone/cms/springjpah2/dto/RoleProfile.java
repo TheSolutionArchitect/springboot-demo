@@ -1,25 +1,22 @@
-package com.obliqueone.cms.springjpah2.entity;
-
-import java.util.Collection;
+package com.obliqueone.cms.springjpah2.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.obliqueone.cms.springjpah2.entity.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "ROLES")
-public class RoleEntity {
+public class RoleProfile {
 
 	@Id
 	//@Column(name = "role_id")

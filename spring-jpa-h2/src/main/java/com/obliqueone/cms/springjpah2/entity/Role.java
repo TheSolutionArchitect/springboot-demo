@@ -10,18 +10,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
-@Table(name = "USERS")
-public class UserEntity {
-    @Id
-    @GeneratedValue
-    private int id;
-    private String userName;
-    private String password;
-    private boolean active;
-    private String roles;//ROLE_USER,ROLE_ADMIN
+@Table(name = "ROLES")
+public class Role {
+
+	@Id
+	//@Column(name = "role_id")
+	@GeneratedValue
+	private int id;
+	private String roleName;
+	private String roleCd;
+	private String roleDesc;
+	private boolean enabled;
 }

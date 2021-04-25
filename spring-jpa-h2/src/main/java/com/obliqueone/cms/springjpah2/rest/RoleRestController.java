@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.obliqueone.cms.springjpah2.entity.RoleEntity;
+import com.obliqueone.cms.springjpah2.entity.Role;
 import com.obliqueone.cms.springjpah2.service.RoleService;
 
 @RestController
@@ -17,7 +17,7 @@ public class RoleRestController {
 	private RoleService roleService;
 	
 	@PostMapping("/")
-	public RoleEntity save(@RequestBody RoleEntity entity) {
+	public Role save(@RequestBody Role entity) {
 		return roleService.saveRole(entity);
 	}
 }

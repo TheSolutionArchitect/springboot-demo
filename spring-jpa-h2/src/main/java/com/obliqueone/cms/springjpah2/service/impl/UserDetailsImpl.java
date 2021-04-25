@@ -1,15 +1,17 @@
 package com.obliqueone.cms.springjpah2.service.impl;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.obliqueone.cms.springjpah2.entity.UserEntity;
+import com.obliqueone.cms.springjpah2.entity.Role;
+import com.obliqueone.cms.springjpah2.entity.User;
 
 public class UserDetailsImpl implements UserDetails {
     /**
@@ -21,13 +23,20 @@ public class UserDetailsImpl implements UserDetails {
     private boolean isActive;
     private List<GrantedAuthority> authorities;
 
-    public UserDetailsImpl(UserEntity user) {
+    public UserDetailsImpl(User user) {
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.isActive = user.isActive();
-        this.authorities = Arrays.stream(user.getRoles().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        this.authorities = getUserAuthority(user.getRoles());
+    }
+    
+    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
+        for (Role role : userRoles) {
+            roles.add(new SimpleGrantedAuthority(role.getRoleCd()));
+        }
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+        return grantedAuthorities;
     }
     
     @Override

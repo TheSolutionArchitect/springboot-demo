@@ -1,0 +1,14 @@
+{
+"roleName": "adminrole",
+"roleCd": "ADMIN",
+"roleDesc": "Admin role",
+"enabled": true
+}
+
+
+{
+"userName": "user4",
+"password": "pass4",
+"email": "som@gmail.com"
+"active": true
+}

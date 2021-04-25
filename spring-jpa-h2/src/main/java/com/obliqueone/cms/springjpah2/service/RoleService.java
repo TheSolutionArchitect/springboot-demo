@@ -1,9 +1,9 @@
 package com.obliqueone.cms.springjpah2.service;
 
-import com.obliqueone.cms.springjpah2.entity.RoleEntity;
+import com.obliqueone.cms.springjpah2.entity.Role;
 
 public interface RoleService {
 
-	RoleEntity saveRole(RoleEntity entity);
+	Role saveRole(Role entity);
 
 }
