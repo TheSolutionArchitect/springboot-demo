@@ -29,8 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		http.authorizeRequests().antMatchers("/user/join").permitAll().antMatchers("/user/test/**").permitAll().antMatchers("/role/**").permitAll().and().authorizeRequests()
-				.antMatchers("/user/**", "/post/**").authenticated().and().httpBasic();
+		http.authorizeRequests().antMatchers("/user/join").permitAll()
+		        .antMatchers("/user/test/**").permitAll()
+				.antMatchers("/role/**").permitAll()
+				.antMatchers("/actuator/**").permitAll()//.hasRole("OPERATIONS")
+				.and().authorizeRequests().antMatchers("/user/**", "/profile/**").authenticated()
+				.and().httpBasic();
 	}
 
     @Bean
