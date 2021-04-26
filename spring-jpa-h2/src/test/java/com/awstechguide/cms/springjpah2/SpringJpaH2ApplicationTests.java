@@ -1,4 +1,4 @@
-package com.obliqueone.cms.springjpah2;
+package com.awstechguide.cms.springjpah2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
