@@ -1,5 +1,6 @@
 package com.awstechguide.cms.springjpah2.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -52,33 +53,21 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-    public ResponseEntity<Object> saveUser(UserProfile profile) {
+	public ResponseEntity<Object> saveUser(UserProfile profile) {
 		User newUser = new User();
 		newUser.setUserName(profile.getUser().getUserName().trim());
 		newUser.setPassword(bCryptPasswordEncoder.encode(profile.getUser().getPassword()));
 		newUser.setEmail(profile.getUser().getEmail());
 		newUser.setActive(profile.getUser().isActive());
-        Role userRole = roleRepository.findByRoleCd("ADMIN");
-        newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		
+		Role userRole = roleRepository.findByRoleCd("ADMIN");
+		newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		User savedUser = userRepository.save(newUser);
 		if (userRepository.findById(savedUser.getId()).isPresent()) {
-			return ResponseEntity.accepted().body("Successfully Created Role and User "+profile.getUser().getUserName());
+			return ResponseEntity.accepted()
+					.body("Successfully Created Role and User " + profile.getUser().getUserName());
 		} else
 			return ResponseEntity.unprocessableEntity().body("Failed to Create specified Role");
-    }
-
-	@Override
-	public ResponseEntity<Object> addUser(User user) {
-		User newUser = new User();
-		newUser.setUserName(user.getUserName());
-		newUser.setPassword(user.getPassword());
-		newUser.setRoles(user.getRoles());
-
-		User savedUser = userRepository.save(newUser);
-		if (userRepository.findById(savedUser.getId()).isPresent()) {
-			return ResponseEntity.accepted().body("Successfully Created User with Role");
-		} else
-			return ResponseEntity.unprocessableEntity().body("Failed to Create specified User "+user.getUserName());
 	}
 
 	/**
