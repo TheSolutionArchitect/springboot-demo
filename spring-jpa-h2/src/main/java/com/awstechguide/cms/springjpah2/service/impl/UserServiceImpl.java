@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -83,5 +85,23 @@ public class UserServiceImpl implements UserService {
 				return ResponseEntity.ok().body("Successfully deleted specified record");
 		} else
 			return ResponseEntity.unprocessableEntity().body("No Records Found");
+	}
+
+	@Override
+	public ResponseEntity<Object> updateUser(@Valid UserProfile profile) {
+        
+    	Optional<User> user = userRepository.findById(profile.getUser().getId());
+        if (!user.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        profile.getUser().setId(user.get().getId());
+        profile.getUser().setPassword(bCryptPasswordEncoder.encode(profile.getUser().getPassword()));
+        User updatedUser = userRepository.save(profile.getUser());
+        if (userRepository.findById(updatedUser.getId()).isPresent()) {
+			return ResponseEntity.accepted()
+					.body("Successfully Updated User " + updatedUser.getUserName());
+		} else
+			return ResponseEntity.unprocessableEntity().body("Failed to Update specified user");
 	}
 }

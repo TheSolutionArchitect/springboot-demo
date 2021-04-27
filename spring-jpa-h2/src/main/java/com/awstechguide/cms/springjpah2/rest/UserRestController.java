@@ -1,25 +1,21 @@
 package com.awstechguide.cms.springjpah2.rest;
 
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.awstechguide.cms.springjpah2.common.RoleConstant;
 import com.awstechguide.cms.springjpah2.dto.UserProfile;
 import com.awstechguide.cms.springjpah2.entity.User;
 import com.awstechguide.cms.springjpah2.repository.UserRepository;
@@ -42,13 +38,19 @@ public class UserRestController {
     
     
     @PostMapping("/test/create")
-    public ResponseEntity<Object> createUser(@RequestBody UserProfile userProfile) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserProfile userProfile) {
     	String encryptedPwd = passwordEncoder.encode(userProfile.getUser().getPassword());
     	userProfile.getUser().setPassword(encryptedPwd);
         return  userService.saveUser(userProfile);
     }
+    
+    @PutMapping("/test/update/{id}")
+    public ResponseEntity<Object> updateUser(@Valid @RequestBody UserProfile profile) {    	
+    	return userService.updateUser(profile);
+    }
+    
     @DeleteMapping("/test/delete/{id}")
-    public ResponseEntity<Object> deleteRole(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
 

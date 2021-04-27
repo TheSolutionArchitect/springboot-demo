@@ -2,6 +2,8 @@ package com.awstechguide.cms.springjpah2.service;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 
 import com.awstechguide.cms.springjpah2.dto.UserProfile;
@@ -15,5 +17,6 @@ public interface UserService {
 	User findUserByEmail(String email);
 	//ResponseEntity<Object> saveUser(User user);
 	ResponseEntity<Object> saveUser(UserProfile profile);
+	ResponseEntity<Object> updateUser(@Valid UserProfile profile);
 
 }
