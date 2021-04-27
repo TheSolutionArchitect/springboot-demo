@@ -1,7 +1,6 @@
 package com.awstechguide.cms.springjpah2.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.awstechguide.cms.springjpah2.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +12,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UserProfile {
-    @Id
-    @GeneratedValue
-    private int id;
-    private String userName;
-    private String password;
-    private boolean active;
-    private String roles;
+
+    private User user;
 }

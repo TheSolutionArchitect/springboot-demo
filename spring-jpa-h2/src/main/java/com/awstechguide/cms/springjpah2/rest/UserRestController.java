@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.awstechguide.cms.springjpah2.common.RoleConstant;
+import com.awstechguide.cms.springjpah2.dto.UserProfile;
 import com.awstechguide.cms.springjpah2.entity.User;
 import com.awstechguide.cms.springjpah2.repository.UserRepository;
 import com.awstechguide.cms.springjpah2.service.UserService;
@@ -41,10 +42,10 @@ public class UserRestController {
     
     
     @PostMapping("/test/create")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
-    	String encryptedPwd = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPwd);
-        return  userService.saveUser(user);
+    public ResponseEntity<Object> createUser(@RequestBody UserProfile userProfile) {
+    	String encryptedPwd = passwordEncoder.encode(userProfile.getUser().getPassword());
+    	userProfile.getUser().setPassword(encryptedPwd);
+        return  userService.saveUser(userProfile);
     }
     @DeleteMapping("/test/delete/{id}")
     public ResponseEntity<Object> deleteRole(@PathVariable Long id) {

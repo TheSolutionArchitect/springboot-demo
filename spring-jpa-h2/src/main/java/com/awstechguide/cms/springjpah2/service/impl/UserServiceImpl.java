@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.awstechguide.cms.springjpah2.dto.UserProfile;
 import com.awstechguide.cms.springjpah2.entity.Role;
 import com.awstechguide.cms.springjpah2.entity.User;
 import com.awstechguide.cms.springjpah2.repository.RoleRepository;
@@ -51,17 +52,17 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-    public ResponseEntity<Object> saveUser(User user) {
+    public ResponseEntity<Object> saveUser(UserProfile profile) {
 		User newUser = new User();
-		newUser.setUserName(user.getUserName().trim());
-		newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		newUser.setEmail(user.getEmail());
-		newUser.setActive(user.isActive());
+		newUser.setUserName(profile.getUser().getUserName().trim());
+		newUser.setPassword(bCryptPasswordEncoder.encode(profile.getUser().getPassword()));
+		newUser.setEmail(profile.getUser().getEmail());
+		newUser.setActive(profile.getUser().isActive());
         Role userRole = roleRepository.findByRoleCd("ADMIN");
         newUser.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		User savedUser = userRepository.save(newUser);
 		if (userRepository.findById(savedUser.getId()).isPresent()) {
-			return ResponseEntity.accepted().body("Successfully Created Role and User "+user.getUserName());
+			return ResponseEntity.accepted().body("Successfully Created Role and User "+profile.getUser().getUserName());
 		} else
 			return ResponseEntity.unprocessableEntity().body("Failed to Create specified Role");
     }

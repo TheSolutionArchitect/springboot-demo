@@ -12,3 +12,14 @@
 "email": "som@gmail.com"
 "active": true
 }
+
+------------
+
+{ "user":  
+  {
+	"userName": "user2",
+	"password": "pass2",
+	"email": "som2@gmail.com",
+	"active": true
+  } 
+}

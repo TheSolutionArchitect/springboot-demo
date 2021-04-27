@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
+import com.awstechguide.cms.springjpah2.dto.UserProfile;
 import com.awstechguide.cms.springjpah2.entity.User;
 
 public interface UserService {
@@ -13,6 +14,7 @@ public interface UserService {
 	ResponseEntity<Object> deleteUser(Long id);
 	Optional<User> findUserByUserName(String userName);
 	User findUserByEmail(String email);
-	ResponseEntity<Object> saveUser(User user);
+	//ResponseEntity<Object> saveUser(User user);
+	ResponseEntity<Object> saveUser(UserProfile profile);
 
 }
