@@ -14,7 +14,7 @@ public interface UserService {
 	User joinUser(User user);
 	ResponseEntity<Object> deleteUser(Long id);
 	Optional<User> findUserByUserName(String userName);
-	User findUserByEmail(String email);
+	Optional<User> findUserByEmail(String email);
 	//ResponseEntity<Object> saveUser(User user);
 	ResponseEntity<Object> saveUser(UserProfile profile);
 	ResponseEntity<Object> updateUser(@Valid UserProfile profile);

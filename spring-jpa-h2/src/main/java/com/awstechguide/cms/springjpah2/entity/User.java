@@ -1,16 +1,14 @@
 package com.awstechguide.cms.springjpah2.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -48,8 +46,7 @@ public class User {
 	@NotNull
 	private boolean active;
 	
-	@OneToMany(targetEntity = Role.class)
+	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL)
 	private Set<Role> roles;
-	// private String roles;//ROLE_USER,ROLE_ADMIN
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.awstechguide.cms.springjpah2.dto.UserProfile;
 import com.awstechguide.cms.springjpah2.entity.Role;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findUserByEmail(String email) {
+	public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -104,4 +105,14 @@ public class UserServiceImpl implements UserService {
 		} else
 			return ResponseEntity.unprocessableEntity().body("Failed to Update specified user");
 	}
+
+	// Fix return type to DTO
+    public ResponseEntity<User> getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        return ResponseEntity.ok(user.get());
+    }
 }
